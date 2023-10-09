@@ -11,7 +11,7 @@
     -moz-user-select:none;
     user-select:none;
 }
-div>img{
+img{
     display: block;
     border-radius: 100%;
     background-color: #999;

@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {Link} from "react-router-dom";
 
 import './UserProfileInHeader.css'
 
@@ -14,14 +15,14 @@ export const UserProfileInHeader = () =>{
 
     return(
         <div className="user">
-            <img src="" alt="user-profile-img"/>
+            <Link to='/profile'><img src="" alt="user-profile-img"/></Link>
             {!user ?
                 <div className="user-name">
                     <h3 onClick={showOptions}>Franciszek Kaniewski</h3>
                     {optionsOpened?<ul>
-                        <li>⚙ Settings</li>
-                        <li>🐾 Profile</li>
-                        <li>🚪 Logout</li>
+                        <li><Link to='/settings'>⚙ Settings</Link></li>
+                        <li><Link to='/profile'>🐾 Profile</Link></li>
+                        <li><Link to='/login'>🚪 Logout</Link></li>
                     </ul>:null}
                 </div>
                 :

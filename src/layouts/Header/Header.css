@@ -5,7 +5,7 @@
     padding: 20px 10vw;
     background-color: var(--light-gray-color);
 }
-.header>h1{
+.header>a>h1{
     margin: 20px auto;
 }
 .vet,.manager{
