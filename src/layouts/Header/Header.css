@@ -1,0 +1,18 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: var(--light-gray-color);
+}
+.header>h1{
+    margin: auto 0;
+}
+.vet,.manager{
+    cursor: pointer;
+}
+.vet{
+    color:var(--blue-color);
+}
+.manager{
+    color: var(--green-color);
+}

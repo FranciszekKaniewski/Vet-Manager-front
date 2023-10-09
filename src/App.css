@@ -1,0 +1,11 @@
+:root{
+    --blue-color: #3b94c4;
+    --green-color: #3bc462;
+    --light-gray-color: #e3e3e3;
+    --dark-gray-color: #414144;
+}
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Calibri, sans-serif;
+}
