@@ -10,6 +10,7 @@ import {ProfilePage} from "./views/ProfilePage";
 import {SettingsPage} from "./views/SettingsPage";
 
 import {userIsLogged} from "./contexts/userDataContext";
+import {Fetch} from "./utils/Fetch";
 
 function App() {
 
@@ -19,14 +20,13 @@ function App() {
     useEffect(() => {
         setRendering(true);
         (async()=>{
-            const res = await fetch('http://localhost:3001/user/is_logged',{
-                mode:"cors",
-                credentials:"include",
-            })
-            setLogged((await res.json()).isLogged);
+
+            const res = await Fetch('user/is_logged')
+            const data = await res.json()
+
+            setLogged(data.isLogged);
             await setRendering(false);
         })();
-
     }, [logged]);
 
 

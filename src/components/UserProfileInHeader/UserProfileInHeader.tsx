@@ -3,17 +3,23 @@ import {Link} from "react-router-dom";
 
 import './UserProfileInHeader.css'
 import {userIsLogged} from "../../contexts/userDataContext";
+import {Fetch} from "../../utils/Fetch";
 
 export const UserProfileInHeader = () =>{
 
     const [optionsOpened,setOptionsOpened]= useState(false);
     const loggedInContext = useContext(userIsLogged)
 
+    if(loggedInContext===null) return null;
+
     const showOptions = () =>{
         setOptionsOpened(prevState => !prevState)
     }
 
-    if(loggedInContext===null) return null;
+    const logout = async () =>{
+        await Fetch('user/logout',"POST")
+        loggedInContext.change(false);
+    }
 
     return(
         <div className="user">
@@ -24,7 +30,7 @@ export const UserProfileInHeader = () =>{
                     {optionsOpened?<ul>
                         <li><Link to='/settings'>⚙ Settings</Link></li>
                         <li><Link to='/profile'>🐾 Profile</Link></li>
-                        <li><Link to='/login'>🚪 Logout</Link></li>
+                        <li onClick={logout}>🚪 Logout</li>
                     </ul>:null}
                 </div>
                 :

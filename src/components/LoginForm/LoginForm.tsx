@@ -1,9 +1,10 @@
 import {FormEvent, useContext, useState} from "react";
 import {userIsLogged} from "../../contexts/userDataContext";
+import {Fetch} from "../../utils/Fetch";
 
 export const LoginForm = () => {
 
-    const [login,setLogin] = useState<string>("");
+    const [email,setEmail] = useState<string>("");
     const [password,setPassword] = useState<string>("");
     const loggedInContext = useContext(userIsLogged)
 
@@ -12,19 +13,10 @@ export const LoginForm = () => {
     const submitFunction = async (e:FormEvent) =>{
         e.preventDefault();
 
-        const res = await fetch('http://localhost:3001/user/login', {
-                method:"Post",
-                mode:"cors",
-                credentials: 'include',
-                headers:{
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({email:login,password:password}),
-            }
-        )
-        loggedInContext.change(res.status === 200);
+        const res = await Fetch('user/login',"POST",JSON.stringify({email,password}))
+        loggedInContext.change((await res).status === 200);
 
-        setLogin("");
+        setEmail("");
         setPassword("");
     }
 
@@ -32,7 +24,7 @@ export const LoginForm = () => {
         <form className="login">
             <label>
                 <p>TomwwS@gmail.com</p>
-                <input onChange={(e)=>setLogin(e.target.value)} value={login} type="text" className="login"/>
+                <input onChange={(e)=>setEmail(e.target.value)} value={email} type="text" className="login"/>
             </label>
             <label>
                 <p>Password123</p>
