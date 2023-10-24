@@ -1,6 +1,5 @@
 .user{
     display: flex;
-    margin: auto;
 }
 .user>.user-name{
     margin: auto 0 auto 20px;
