@@ -1,20 +1,22 @@
 import {FormEvent, useContext, useState} from "react";
-import {userIsLogged} from "../../contexts/userDataContext";
+import {userDataContext} from "../../contexts/userDataContext";
 import {Fetch} from "../../utils/Fetch";
 
 export const LoginForm = () => {
 
     const [email,setEmail] = useState<string>("");
     const [password,setPassword] = useState<string>("");
-    const loggedInContext = useContext(userIsLogged)
+    const userData = useContext(userDataContext)
 
-    if(loggedInContext === null) return null;
+    if(userData === null) return null;
 
     const submitFunction = async (e:FormEvent) =>{
         e.preventDefault();
 
-        const res = await Fetch('user/login',"POST",JSON.stringify({email,password}))
-        loggedInContext.change((await res).status === 200);
+        await Fetch('user/login',"POST",JSON.stringify({email,password}))
+        const res = await Fetch('user/info',"GET");
+        const data = await res.json();
+        userData.setUser(data);
 
         setEmail("");
         setPassword("");

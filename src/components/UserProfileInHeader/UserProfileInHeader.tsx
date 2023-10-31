@@ -2,15 +2,15 @@ import {useContext, useState} from "react";
 import {Link} from "react-router-dom";
 
 import './UserProfileInHeader.css'
-import {userIsLogged} from "../../contexts/userDataContext";
+import {userDataContext} from "../../contexts/userDataContext";
 import {Fetch} from "../../utils/Fetch";
 
 export const UserProfileInHeader = () =>{
 
     const [optionsOpened,setOptionsOpened]= useState(false);
-    const loggedInContext = useContext(userIsLogged)
+    const userData = useContext(userDataContext)
 
-    if(loggedInContext===null) return null;
+    if(userData===null) return null;
 
     const showOptions = () =>{
         setOptionsOpened(prevState => !prevState)
@@ -18,15 +18,15 @@ export const UserProfileInHeader = () =>{
 
     const logout = async () =>{
         await Fetch('user/logout',"POST")
-        loggedInContext.change(false);
+        userData.setUser(null);
     }
 
     return(
         <div className="user">
-            <Link to={loggedInContext.value?'/profile':'/login'}><img src="" alt="user-profile-img"/></Link>
-            {loggedInContext.value ?
+            <Link to={userData.value?'/profile':'/login'}><img src="" alt="user-profile-img"/></Link>
+            {userData.value ?
                 <div className="user-name">
-                    <h3 onClick={showOptions}>Franciszek Kaniewski</h3>
+                    <h3 onClick={showOptions}>{userData.value.name} {userData.value.surname}</h3>
                     {optionsOpened?<ul>
                         <li><Link to='/settings'>⚙ Settings</Link></li>
                         <li><Link to='/profile'>🐾 Profile</Link></li>

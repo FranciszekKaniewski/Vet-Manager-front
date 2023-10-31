@@ -1,9 +1,9 @@
 import {LoginForm} from "../components/LoginForm/LoginForm";
 import {useContext} from "react";
-import {userIsLogged} from "../contexts/userDataContext";
+import {userDataContext} from "../contexts/userDataContext";
 
 export const LoginPage = () => {
-    const loggedInContext = useContext(userIsLogged)
+    const loggedInContext = useContext(userDataContext)
 
     if(loggedInContext === null) return null;
 

@@ -9,42 +9,33 @@ import {LoginPage} from "./views/LoginPage";
 import {ProfilePage} from "./views/ProfilePage";
 import {SettingsPage} from "./views/SettingsPage";
 
-import {userIsLogged} from "./contexts/userDataContext";
+import {clientUser, userDataContext} from "./contexts/userDataContext";
 import {Fetch} from "./utils/Fetch";
 
 function App() {
 
-    const [logged, setLogged] = useState(false);
-    const [rendering,setRendering] = useState(false);
+    const [userData, setUserData] = useState<clientUser|null>(null);
 
     useEffect(() => {
-        setRendering(true);
         (async()=>{
-
-            const res = await Fetch('user/is_logged')
-            const data = await res.json()
-
-            setLogged(data.isLogged);
-            await setRendering(false);
-        })();
-    }, [logged]);
+            const res = await Fetch('user/info')
+            const data = await res.json();
+            setUserData(data);
+        })()
+    }, []);
 
 
   return (
     <div className="App">
-        <userIsLogged.Provider value={{value:logged, change:setLogged}}>
+        <userDataContext.Provider value={{value:userData, setUser:setUserData}}>
             <Header/>
-            {!rendering?
                 <Routes>
                     <Route path='/' element={<MainPage/>}/>
                     <Route path='/login' element={<LoginPage/>}/>
                     <Route path='/profile' element={<ProfilePage/>}/>
                     <Route path='/settings' element={<SettingsPage/>}/>
                 </Routes>
-                :
-                <h1>...</h1>
-            }
-        </userIsLogged.Provider>
+        </userDataContext.Provider>
     </div>
   );
 }
