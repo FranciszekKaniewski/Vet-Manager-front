@@ -1,6 +1,7 @@
 import {FormEvent, useContext, useState} from "react";
 import {userDataContext} from "../../contexts/userDataContext";
 import {Fetch} from "../../utils/Fetch";
+import {Form} from "../../utils/Form";
 
 export const LoginForm = () => {
 
@@ -23,17 +24,15 @@ export const LoginForm = () => {
     }
 
     return(
-        <form className="login">
-            <label>
-                <p>TomwwS@gmail.com</p>
-                <input onChange={(e)=>setEmail(e.target.value)} value={email} type="text" className="login"/>
-            </label>
-            <label>
-                <p>Password123</p>
-                <input onChange={(e)=>setPassword(e.target.value)} value={password} type="password" className="login"/>
-            </label>
-            <br/>
-            <button onClick={submitFunction}>Login</button>
-        </form>
+        <>
+        <Form
+            onSubmitFn={submitFunction}
+            array={[
+                {name:'Login',type:'text',value:email,changer:setEmail},
+                {name:'Password',type:'password',value:password,changer:setPassword},
+            ]}
+            button={'Log in'}
+        />
+        </>
     )
 }
