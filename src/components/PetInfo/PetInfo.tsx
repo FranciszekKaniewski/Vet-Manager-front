@@ -1,29 +1,24 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Pet} from 'types';
+import {Fetch} from "../../utils/Fetch";
 
 import './pet-info.css'
 
-export const PetInfo = () => {
-    const [petsData,setPetsData] = useState([
-        {
-            id: "123",
-            name: 'bartuś',
-            species: 'rabbit',
-            birthday: '09-10-2020',
-            ownerID: "501a20c9-6f10-11ee-89c0-18c04dda4d85",
-        },
-        {
-            id: "124",
-            name: 'Kasia',
-            species: 'dog',
-            race:"mops",
-            birthday: '05-10-2021',
-            ownerID: "501a20c9-6f10-11ee-89c0-18c04dda4d85",
-        },])
 
+export const PetInfo = () => {
+    const [petsData,setPetsData] = useState<Pet[]|null>(null)
     const [selectedPetData, setSelectedPetData] = useState<Pet | null>(petsData ? petsData[0]:null);
 
-    if(petsData === null) return null;
+    useEffect(()=>{
+        (async()=>{
+            const res = await Fetch('pet/getAll');
+            const data = await res.json();
+            setPetsData(data);
+            setSelectedPetData(data[0]);
+        })()
+    },[])
+
+    if(petsData === null) return <h1>Loading ...</h1>;
 
     const changeHandler = (e: any) => {
         setSelectedPetData(petsData.filter(pet=>pet.id===e.target.value)[0]);
@@ -31,7 +26,7 @@ export const PetInfo = () => {
 
     const petsOption = <select onChange={(e) => changeHandler(e)}>
         {petsData.map(pet => (
-            <option value={pet.id}>{pet.name}</option>
+            <option key={pet.id} value={pet.id}>{pet.name}</option>
         ))}
     </select>
 
@@ -46,6 +41,7 @@ export const PetInfo = () => {
     return (
         <div className='pet-info'>
             <h1>Your Pet:</h1>
+
             {petsOption}
             {pet}
         </div>

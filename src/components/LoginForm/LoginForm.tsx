@@ -14,13 +14,18 @@ export const LoginForm = () => {
     const submitFunction = async (e:FormEvent) =>{
         e.preventDefault();
 
-        await Fetch('user/login',"POST",JSON.stringify({email,password}))
-        const res = await Fetch('user/info',"GET");
-        const data = await res.json();
-        userData.setUser(data);
+        const res = await Fetch('user/login',"POST",JSON.stringify({email,password}))
+        const data = await res.json()
+        console.log(data.message);
 
-        setEmail("");
-        setPassword("");
+        if(res.status === 200){
+            const res = await Fetch('user/info',"GET");
+            const data = await res.json();
+            userData.setUser(data);
+
+            setEmail("");
+            setPassword("");
+        }
     }
 
     return(
@@ -28,7 +33,7 @@ export const LoginForm = () => {
         <Form
             onSubmitFn={submitFunction}
             array={[
-                {name:'Login',type:'text',value:email,changer:setEmail},
+                {name:'E-mail',type:'text',value:email,changer:setEmail},
                 {name:'Password',type:'password',value:password,changer:setPassword},
             ]}
             button={'Log in'}

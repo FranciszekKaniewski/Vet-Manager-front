@@ -14,7 +14,8 @@ export const RegisterForm = () =>{
         e.preventDefault()
         const obj = {name,surname,email,phoneNumber,password,role:'user'}
         const res = await Fetch('user/register',"POST",JSON.stringify(obj));
-        console.log(res);
+        const data = (await res.json());
+        console.log(data.message);
     }
 
 
