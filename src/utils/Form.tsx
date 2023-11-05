@@ -9,7 +9,7 @@ type Props = {
 export const Form = (props:Props) =>{
 
     const labels = props.array.map(e=>
-        <label>
+        <label key={e.name}>
             <p>{e.name}</p>
             <input required={e.required} pattern={e.pattern} onChange={(input)=>e.changer(input.target.value)} type={e.type} value={e.value}/>
         </label>
