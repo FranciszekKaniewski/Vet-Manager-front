@@ -1,18 +1,26 @@
 import {Form} from "../../utils/Form";
-import {useState} from "react";
+import {FormEvent, useState} from "react";
+import {Fetch} from "../../utils/Fetch";
 
 export const RegisterForm = () =>{
 
-    const [email,setEmail] = useState('');
     const [name,setName] = useState('');
     const [surname,setSurname] = useState('');
+    const [email,setEmail] = useState('');
     const [phoneNumber,setPhoneNumber]= useState('');
     const [password,setPassword] = useState('');
+
+    const submitHandler = async (e:FormEvent) =>{
+        e.preventDefault()
+        const obj = {name,surname,email,phoneNumber,password,role:'user'}
+        const res = await Fetch('user/register',"POST",JSON.stringify(obj));
+        console.log(res);
+    }
 
 
     return(
         <Form
-            onSubmitFn={()=>console.log(email)}
+            onSubmitFn={submitHandler}
             array={[
                 {name:'Name',type:'text',value:name,changer:setName,required:true},
                 {name:'Surname',type:'text',value:surname,changer:setSurname,required:true},
