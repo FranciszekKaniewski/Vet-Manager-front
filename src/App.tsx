@@ -15,12 +15,15 @@ import {Fetch} from "./utils/Fetch";
 function App() {
 
     const [userData, setUserData] = useState<clientUser|null>(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         (async()=>{
-            const res = await Fetch('user/info')
+            setLoading(true);
+            const res = await Fetch('user/info');
             const data = await res.json();
             setUserData(data);
+            setLoading(false);
         })()
     }, []);
 
@@ -28,13 +31,15 @@ function App() {
     <div className="App">
         <userDataContext.Provider value={{value:userData, setUser:setUserData}}>
             <Header/>
-            { userData === null ? <h1>Loading</h1> :
+            {loading ?
                 <Routes>
-                    <Route path='/' element={<MainPage name={userData.name}/>}/>
+                    <Route path='/' element={<MainPage/>}/>
                     <Route path='/login' element={<LoginPage/>}/>
                     <Route path='/profile' element={<ProfilePage/>}/>
                     <Route path='/settings' element={<SettingsPage/>}/>
                 </Routes>
+                :
+                <h1>Loading ...</h1>
             }
         </userDataContext.Provider>
     </div>
