@@ -24,17 +24,18 @@ function App() {
         })()
     }, []);
 
-
   return (
     <div className="App">
         <userDataContext.Provider value={{value:userData, setUser:setUserData}}>
             <Header/>
+            { userData === null ? <h1>Loading</h1> :
                 <Routes>
-                    <Route path='/' element={<MainPage/>}/>
+                    <Route path='/' element={<MainPage name={userData.name}/>}/>
                     <Route path='/login' element={<LoginPage/>}/>
                     <Route path='/profile' element={<ProfilePage/>}/>
                     <Route path='/settings' element={<SettingsPage/>}/>
                 </Routes>
+            }
         </userDataContext.Provider>
     </div>
   );

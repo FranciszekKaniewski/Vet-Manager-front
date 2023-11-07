@@ -1,49 +1,70 @@
-import {useEffect, useState} from "react";
-import {Pet} from 'types';
-import {Fetch} from "../../utils/Fetch";
+import {useState} from "react";
 
-import './pet-info.css'
+type Props = {
+    name:string;
+    birthday:string;
+    species:string;
+    race:string | undefined;
+    editHandler:(name:string,birthday:string,species:string,race:string|undefined)=>{};
+    deleteHandler:()=>{};
+}
 
+export const PetInfo = (props:Props) =>{
+    const {name,birthday,species,race,editHandler,deleteHandler} = props
 
-export const PetInfo = () => {
-    const [petsData,setPetsData] = useState<Pet[]|null>(null)
-    const [selectedPetData, setSelectedPetData] = useState<Pet | null>(petsData ? petsData[0]:null);
+    const [newName, setNewName] = useState(name);
+    const [newBirthday, setNewBirthday] = useState(birthday);
+    const [newSpecies, setNewSpecies] = useState(species);
+    const [newRace, setNewRace] = useState(race);
 
-    useEffect(()=>{
-        (async()=>{
-            const res = await Fetch('pet/getAll');
-            const data = await res.json();
-            setPetsData(data);
-            setSelectedPetData(data[0]);
-        })()
-    },[])
+    const[editMode,setEditMode] = useState(false);
 
-    if(petsData === null) return <h1>Loading ...</h1>;
-
-    const changeHandler = (e: any) => {
-        setSelectedPetData(petsData.filter(pet=>pet.id===e.target.value)[0]);
+    const modeHandler = () =>{
+        setEditMode(prevState => !prevState);
+        setNewName(name)
+        setNewBirthday(birthday)
+        setNewSpecies(species)
+        setNewRace(race)
+    }
+    const saveHandler = () =>{
+        editHandler(newName,newBirthday,newSpecies,newRace);
+        setEditMode(prevState => !prevState);
+    }
+    const backHandler = () =>{
+        setNewName(name)
+        setNewBirthday(birthday)
+        setNewSpecies(species)
+        setNewRace(race)
+        setEditMode(prevState => !prevState);
     }
 
-    const petsOption = <select onChange={(e) => changeHandler(e)}>
-        {petsData.map(pet => (
-            <option key={pet.id} value={pet.id}>{pet.name}</option>
-        ))}
-    </select>
-
-    const pet = selectedPetData ?
+    const context = !editMode ?
         <div className='pet-data'>
-        <h2>Name: {selectedPetData.name}</h2>
-        <h2>birthday: {selectedPetData.birthday}</h2>
-        <h2>species: {selectedPetData.species}</h2>
-        <h2>race: {selectedPetData.race ?? "none"}</h2>
-        </div> : null
-
-    return (
-        <div className='pet-info'>
-            <h1>Your Pet:</h1>
-
-            {petsOption}
-            {pet}
+            <h2>Name: {name}</h2>
+            <h2>Birthday: {birthday}</h2>
+            <h2>Species: {species}</h2>
+            <h2>Race: {race ?? "none"}</h2>
         </div>
+        :
+        <div className='pet-data'>
+            <h2>Name: <input type="text" value={newName} onChange={(e)=>setNewName(e.target.value)}/></h2>
+            <h2>Birthday: <input type="date" value={newBirthday} onChange={(e)=>setNewBirthday(e.target.value)}/></h2>
+            <h2>Species: <input type="text" value={newSpecies} onChange={(e)=>setNewSpecies(e.target.value)}/></h2>
+            <h2>Race: <input type="text" value={newRace} onChange={(e)=>setNewRace(e.target.value)}/></h2>
+        </div>
+
+    const editButtons = editMode ?
+        <div className='buttons'>
+            <button onClick={backHandler}>Back</button>
+            <button className='save' onClick={saveHandler}>Save</button>
+            <button className='delete' onClick={deleteHandler}>Delete</button>
+        </div>:
+        <button onClick={modeHandler}>edit</button>
+
+    return(
+        <>
+            {editButtons}
+            {context}
+        </>
     )
 }
