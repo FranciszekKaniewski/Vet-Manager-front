@@ -16,3 +16,16 @@ a{
     text-decoration: none;
     color: inherit;
 }
+button{
+    width: 100px;
+    height: calc(50px - 10px);
+    margin: 5px;
+    border: 2px dashed var(--dark-gray-color);
+    background-color: var(--light-gray-color);
+    border-radius: 15px;
+    transition: .4s;
+}
+button:hover{
+    background-color: var(--dark-gray-color);
+    color: #eeeeee;
+}
