@@ -1,8 +1,10 @@
 :root{
     --blue-color: #3b94c4;
     --green-color: #3bc462;
+    --light-green-color: lightgreen;
     --light-gray-color: #e3e3e3;
     --dark-gray-color: #414144;
+    --red-color:lightcoral;
 }
 *{
     margin: 0;
@@ -15,4 +17,20 @@ h1{
 a{
     text-decoration: none;
     color: inherit;
+}
+button{
+    width: 100px;
+    height: calc(50px - 10px);
+    margin: 5px;
+    border: 2px dashed var(--dark-gray-color);
+    background-color: var(--light-gray-color);
+    border-radius: 15px;
+    transition: .4s;
+}
+button:hover{
+    background-color: var(--dark-gray-color);
+    color: #eeeeee;
+}
+input{
+    transition: .2s;
 }

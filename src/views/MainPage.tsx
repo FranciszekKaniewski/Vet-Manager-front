@@ -1,13 +1,20 @@
 import {useContext} from "react";
 import {userDataContext} from "../contexts/userDataContext";
+import {PetsComponent} from "../components/PetsComponent/PetsComponent";
 
 
 export const MainPage = () =>{
     const isLogged = useContext(userDataContext);
 
-    if(isLogged===null) return null;
-
     return(
-        isLogged.value ? <h1>Witam {isLogged.value.name}</h1> : <h1>Loguj</h1>
+        isLogged?.value ?
+            <>
+                <br/>
+                <h1>Hi {isLogged.value.name}</h1>
+                <br/>
+                <PetsComponent/>
+            </>
+            :
+            <h1>Log in to have access!</h1>
     )
 }
