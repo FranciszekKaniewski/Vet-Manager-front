@@ -6,10 +6,8 @@ import {PetsComponent} from "../components/PetsComponent/PetsComponent";
 export const MainPage = () =>{
     const isLogged = useContext(userDataContext);
 
-    if(isLogged===null) return <h2>loading...</h2>;
-
     return(
-        isLogged.value ?
+        isLogged?.value ?
             <>
                 <br/>
                 <h1>Hi {isLogged.value.name}</h1>
@@ -17,6 +15,6 @@ export const MainPage = () =>{
                 <PetsComponent/>
             </>
             :
-            <h1>Zaloguj się!</h1>
+            <h1>Log in to have access!</h1>
     )
 }
