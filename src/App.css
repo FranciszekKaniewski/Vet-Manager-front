@@ -1,8 +1,10 @@
 :root{
     --blue-color: #3b94c4;
     --green-color: #3bc462;
+    --light-green-color: lightgreen;
     --light-gray-color: #e3e3e3;
     --dark-gray-color: #414144;
+    --red-color:lightcoral;
 }
 *{
     margin: 0;
@@ -28,4 +30,7 @@ button{
 button:hover{
     background-color: var(--dark-gray-color);
     color: #eeeeee;
+}
+input{
+    transition: .2s;
 }

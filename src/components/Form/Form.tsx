@@ -2,8 +2,8 @@ import {FormEvent} from "react";
 
 type Props = {
     onSubmitFn:(e:FormEvent)=>void|Promise<void>;
-    array:{name:string,type:string,value:any,changer:any,required?:boolean,pattern?:string}[],
-    button:string,
+    array:{name:string,type:string,value:any,changer:any,required?:boolean,pattern?:string}[];
+    button:string;
 }
 
 export const Form = (props:Props) =>{

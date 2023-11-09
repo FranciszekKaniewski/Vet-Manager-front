@@ -1,30 +1,45 @@
 import {FormEvent, useContext, useState} from "react";
-import {userDataContext} from "../../contexts/userDataContext";
 import {Fetch} from "../../utils/Fetch";
-import {Form} from "../../utils/Form";
+import {Form} from "../Form/Form";
+
+import {userDataContext} from "../../contexts/userDataContext";
+import {color, messagesContext} from "../../contexts/messagesContext";
 
 export const LoginForm = () => {
 
     const [email,setEmail] = useState<string>("");
     const [password,setPassword] = useState<string>("");
-    const userData = useContext(userDataContext)
 
-    if(userData === null) return null;
+    const userData = useContext(userDataContext);
+    const messages = useContext(messagesContext);
+
 
     const submitFunction = async (e:FormEvent) =>{
         e.preventDefault();
 
         const res = await Fetch('user/login',"POST",JSON.stringify({email,password}))
-        const data = await res.json()
-        console.log(data.message);
 
-        if(res.status === 200){
+        if(!res || res.status === 500){
+            messages?.printMessage(`Something gone wrong, try again latter 😓`,color.red);
+        }else if(res.status === 200){
             const res = await Fetch('user/info',"GET");
-            const data = await res.json();
-            userData.setUser(data);
 
-            setEmail("");
-            setPassword("");
+            if(!res || res.status===500){
+                messages?.printMessage(`Something gone wrong, try again latter 😓`,color.red);
+            }else if(res.status===200){
+                const data = await res.json();
+                userData?.setUser(data);
+                messages?.printMessage("Legged in!",color.green);
+
+                setEmail("");
+                setPassword("");
+            }else{
+                const data = await res.json();
+                messages?.printMessage(data.message,color.red);
+            }
+        }else{
+            const data = await res.json();
+            messages?.printMessage(`${data.message}`,color.red);
         }
     }
 
