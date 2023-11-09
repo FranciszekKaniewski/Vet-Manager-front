@@ -1,0 +1,9 @@
+.pop-up{
+    margin: 5px auto;
+    padding: 10px;
+    font-size: 24px;
+    max-width: 300px;
+    max-height: 200px;
+    border-radius: 20px;
+    text-align: center;
+}
