@@ -1,0 +1,33 @@
+.user{
+    display: flex;
+}
+.user>.user-name{
+    margin: auto 0 auto 20px;
+    position: relative;
+    color: var(--dark-gray-color);
+    cursor: pointer;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    user-select:none;
+}
+img{
+    display: block;
+    border-radius: 100%;
+    background-color: #999;
+    width: 75px;
+    height: 75px;
+    cursor: pointer;
+}
+ul{
+    position: absolute;
+    list-style: none;
+    font-family: Calibri,sans-serif;
+    top: calc(100% + 26px);
+    width: 100%;
+}
+li{
+    border: var(--dark-gray-color) 1px solid;
+    background-color: var(--light-gray-color);
+    text-align: center;
+    font-size: 22px;
+}
