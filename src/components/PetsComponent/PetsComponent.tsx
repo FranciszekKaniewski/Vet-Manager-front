@@ -23,7 +23,7 @@ export const PetsComponent = () => {
     useEffect(()=>{
         if(fetched.current) {
             (async () => {
-                const res = await Fetch('pet/getAll');
+                const res = await Fetch('pet/getAll',"GET");
 
                 if (!res || res.status === 500) {
                     messages?.printMessage(`Something gone wrong, ty again latter 😓`,color.red);
