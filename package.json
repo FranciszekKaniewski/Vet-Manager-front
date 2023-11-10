@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "npm i react-app-rewire-alias && react-app-rewired build"
+    "build": "npm i && npm i react-app-rewire-alias && react-app-rewired build"
   },
   "eslintConfig": {
     "extends": [
