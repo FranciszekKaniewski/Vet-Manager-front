@@ -26,7 +26,7 @@ function App() {
     useEffect(() => {
         if(fetched.current){
             (async () => {
-                // setLoading(true);
+                setLoading(true);
 
                 const res = await Fetch('user/info',"GET");
 
@@ -41,7 +41,7 @@ function App() {
                     printMessage(data.message);
                 }
 
-                // setLoading(false);
+                setLoading(false);
             })()
         }
         return () => {

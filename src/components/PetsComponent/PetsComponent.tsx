@@ -21,7 +21,7 @@ export const PetsComponent = () => {
 
     const fetched = useRef(false);
     useEffect(()=>{
-        if(fetched.current) {
+        if(!fetched.current) {
             (async () => {
                 const res = await Fetch('pet/getAll',"GET");
 
