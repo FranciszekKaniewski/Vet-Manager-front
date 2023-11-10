@@ -10,7 +10,8 @@ https://wet-manager-app.netlify.app/
 </ul>
 <hr/>
 
-![image](https://github.com/FranciszekKaniewski/Vet-Manager-back/assets/98970655/44b93466-a2ff-4a7f-b656-48a7c90affe6)
+![image](https://github.com/FranciszekKaniewski/Vet-Manager-front/assets/98970655/7d41bc4c-5ce8-4740-80b3-509fb951f46d)
+
 
 <h2>💾Backend</h2>
 https://github.com/FranciszekKaniewski/Vet-Manager-back
