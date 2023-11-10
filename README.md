@@ -14,3 +14,11 @@ https://wet-manager-app.netlify.app/
 
 <h2>💾Backend</h2>
 https://github.com/FranciszekKaniewski/Vet-Manager-back
+
+<hr>
+problems:
+<ul>
+  <li>refreshing page delete login cookie</li>
+  <li>visits not implemented yet</li>
+  <li>profile change and avatar not implemented yet</li>
+</ul>
