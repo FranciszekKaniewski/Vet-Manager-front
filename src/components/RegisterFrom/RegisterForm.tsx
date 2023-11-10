@@ -22,7 +22,7 @@ export const RegisterForm = () =>{
         if(!res || res.status === 500){
             messages?.printMessage(`Something gone wrong, try again latter 😓`,color.red);
         }else if(res.status === 200){
-            messages?.printMessage("Legged in!",color.green)
+            messages?.printMessage("Account created, you can login now.",color.green);
         }else{
             const data = (await res.json());
             messages?.printMessage(`${data.message}`,color.red);
@@ -34,11 +34,11 @@ export const RegisterForm = () =>{
         <Form
             onSubmitFn={submitHandler}
             array={[
-                {name:'Name',type:'text',value:name,changer:setName,required:true},
-                {name:'Surname',type:'text',value:surname,changer:setSurname,required:true},
-                {name:'E-mail',type:'text',value:email,changer:setEmail,required:true},
+                {name:'Name*',type:'text',value:name,changer:setName,required:true},
+                {name:'Surname*',type:'text',value:surname,changer:setSurname,required:true},
+                {name:'E-mail*',type:'text',value:email,changer:setEmail,required:true},
                 {name:'Phone number',type:'tel',value:phoneNumber,changer:setPhoneNumber, pattern:"[0-9]{9}"},
-                {name:'Password',type:'password',value:password,changer:setPassword,required:true},
+                {name:'Password*',type:'password',value:password,changer:setPassword,required:true},
             ]}
             button={'Sing up'}
         />

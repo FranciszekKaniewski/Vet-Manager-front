@@ -29,7 +29,7 @@ export const LoginForm = () => {
             }else if(res.status===200){
                 const data = await res.json();
                 userData?.setUser(data);
-                messages?.printMessage("Legged in!",color.green);
+                messages?.printMessage("Logged in!",color.green);
 
                 setEmail("");
                 setPassword("");
